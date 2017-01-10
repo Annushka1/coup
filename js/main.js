@@ -135,6 +135,29 @@ function bindCoupons() {
   catalogItem = document.querySelectorAll('.catalog__item');
   specialCart = document.querySelectorAll('.catalog_cart--special');
 
+var sortItem = Array.prototype.slice.call(catalogItem);
+function compareNumeric(a,b) {
+  return a - b;
+};
+console.log(sortItem);
+
+priceBth.addEventListener('click', sortPrise);
+function sortPrise() {  
+  sortItem.sort(function(a, b) {
+    var aPrice = +a.dataset.price;
+    var bPrice = +b.dataset.price;
+    return aPrice - bPrice;
+  })
+  list.innerHTML = '';
+
+  for(var i=0;i<sortItem.length; i++) { 
+    list.appendChild(sortItem[i]);
+    console.log(sortItem[i].dataset.price);
+  }
+};
+
+
+
 
   for (var i=0; i<addToCartButton.length; i++) {
     addToCartButton[i].addEventListener("click", function(e) {
@@ -150,14 +173,15 @@ function bindCoupons() {
         item.name = name.innerText;
         item.price = +price.innerText;
 
-        addToCart(item);
-      }
+        addToCart(item); 
 
+
+      }
     })
   }
-
-
 }
+
+
 
 cart = [];
 
@@ -400,7 +424,6 @@ function filterCatalogMetro(item) {
 }
 
 function filterCatalogSpecial(item) {
-  console.log(item)
  if (state.special == true) {
     console.log(state.special);
     if(Boolean(item.dataset.special) == true) {
@@ -475,7 +498,6 @@ checkInputDate.addEventListener('change', function() {
         var seconds = timerItem[3].querySelector('span')
 
       if (now >= goal) {
-        console.log(now-goal)
         days.innerText = 0;
         hours.innerText = 0;
         minutes.innerText = 0;
@@ -508,12 +530,30 @@ var sortBtn = document.querySelectorAll('.catalog_sort__item');
 var priceBth = sortBtn[0];
 var discountBtn = sortBtn[1];
 
-priceBth.addEventListener('click', function(e) {
-  e.preventDefault();
-  catalogItem.sort(function(a,b) {
-    return a.price - b.price;
-  })
-})
+
+
+  // priceBth.addEventListener('click', function(e) {
+  //   for(var i=0;i<catalogItem;i++) {
+  //     catalogItem.dataset.price.sort(function(a,b) {
+  //       return a.price - b.price;
+  //     })
+  //   }
+  // })
+
+// priceBth.addEventListener('click', function(e) {
+//   e.preventDefault();
+//   for(var i=0; i<catalogItem.length; i++) {
+//     var price = catalogItem[i].dataset.price
+//     price.sort(function(a,b) {
+//       return a.price - b.price;
+//     }
+//   }
+// })
+  // catalogItem.sort(function(a,b) {
+  //   return a.price - b.price;
+  // })
+
+
 
  // for (var i = 0; i < catalogItem.length; i++) {
  //        list.appendChild(catalogItem[i]);
@@ -525,9 +565,6 @@ priceBth.addEventListener('click', function(e) {
 //     return b.discount - a.discount;
 //   })
 // })
-
-
-
 
 
 
